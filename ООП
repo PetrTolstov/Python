@@ -171,46 +171,47 @@ while Mari.hp >= 0 and Vari.hp >= 0:
     F.fight(Mari, Vari)
 
 #Game3
-import random
-class Unit:
-    def __init__(self, number, commandid):
-        self.number = number
-        self.commandId = commandid
-class Hero(Unit):
-    def __init__(self,  number, commandid, name, level=1): 
-        Unit.__init__(self, number, commandid)
-        self.name = name  
-        self.level = level
+class solder:
+    def __init__(self, num, team):
+        self.team = team
+        self.number = num
 
-    def getlevel(self):
-        return self.level
+    def to_hero(self, hero):
+        return hero.num, self.number
 
-    def inclevel(self):
-        self.level += 1
-        print('Уровень героя', self.name,'увеличен на 1 и равен', self.level)
-class Soldier(Unit):
-    def gotohero(self, Hero):
-        print('Солдат ', self.number, 'следует за героем', Hero.name, 'с номером', Hero.number)
-H1 = Hero(1, 1, 'Vari')
-H2 = Hero(2, 2, 'Mari')
-armyH1, armyH2 = [], [] 
 
-for i in range(3, 10):  
-    n = random.randint(0, 1)
-    if n:
-        armyH1.append(Soldier(i, 1))
-        print('Солдат с номером', i, 'добавлен в армию', H1.name)
+class Hero:
+    def __init__(self, num, teamnum,team):
+        self.teamnum = teamnum
+        self.num = num
+        self.lvl = 0
+        self.team = team
+
+    def lvlup(self):
+        self.lvl += 1
+
+    def addsolder(self, sol):
+        return self.team.append(sol)
+
+    def ct(self):
+        return len(self.team)
+
+
+hero1 = Hero(1, 1, [])
+hero2 = Hero(2, 2, [])
+count = 0
+while count < 10:
+    tsolder = random.randrange(1, 3)
+    nsolder = random.random()
+    if tsolder == 1:
+        hero1.addsolder(solder(nsolder, tsolder))
     else:
-        armyH2.append(Soldier(i, 2))
-        print('Солдат с номером', i, 'добавлен в армию', H2.name)
+        hero2.addsolder(solder(nsolder, tsolder))
+    count += 1
 
-print('Армия героя', H1.name, ':', len(armyH1))
-print('Армия героя', H2.name, ':', len(armyH2))
-
-if len(armyH1) > len(armyH2):
-    print('В армии', H1.name, 'больше солдат, увеличиваем его уровень')
-    H1.inclevel()
+if hero1.ct() > hero2.ct():
+    hero1.lvlup()
 else:
-    print('В армии', H2.name, 'больше солдат, увеличиваем его уровень')
-    H2.inclevel()
-armyH1[1].gotohero(H2)
+    hero2.lvlup()
+
+print(hero1.team[0].to_hero(hero1)
