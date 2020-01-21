@@ -1,0 +1,48 @@
+import random
+class Unit:
+    '''  Create the superclass '''
+    def __init__(self, number, commandid):
+        '''   '''
+        self.number = number
+        self.commandId = commandid
+class Hero(Unit):
+    '''  Hero's class '''
+    def __init__(self,  number, commandid, name, level=1):
+        '''  Add methods name and level
+        Baund Hero's class methods name and level '''
+        Unit.__init__(self, number, commandid)
+        self.name = name
+        self.level = level
+
+    def inclevel(self):
+        '''  Increase Hero's level '''
+        self.level += 1
+        print('Уровень героя', self.name,'увеличен на 1 и равен', self.level)
+class Soldier(Unit):
+    '''  Create Soldier's class '''
+    def gotohero(self, Hero):
+        '''  Print info about soldier (what hero he follow) '''
+        print('Солдат ', self.number, 'следует за героем', Hero.name, 'с номером', Hero.number)
+H1 = Hero(1, 1, 'Vari')
+H2 = Hero(2, 2, 'Mari')
+armyH1, armyH2 = [], []
+
+for i in range(3, 10):
+    n = random.randint(0, 1)
+    if n:
+        armyH1.append(Soldier(i, 1))
+        print('Солдат с номером', i, 'добавлен в армию', H1.name)
+    else:
+        armyH2.append(Soldier(i, 2))
+        print('Солдат с номером', i, 'добавлен в армию', H2.name)
+
+print('Армия героя', H1.name, ':', len(armyH1))
+print('Армия героя', H2.name, ':', len(armyH2))
+
+if len(armyH1) > len(armyH2):
+    print('В армии', H1.name, 'больше солдат, увеличиваем его уровень')
+    H1.inclevel()
+else:
+    print('В армии', H2.name, 'больше солдат, увеличиваем его уровень')
+    H2.inclevel()
+armyH1[1].gotohero(H2)
