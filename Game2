@@ -1,0 +1,35 @@
+from random import randint
+
+class Fighter():
+    '''  Class Fighter which determine unit'''
+    hp = 100
+    name = ''
+
+    def fight(self, p1, p2):
+        '''  Create fight and regulate hp'''
+        i = randint(0, 1)
+        if i == 0:
+            p1.hp -= 20
+            print('Hp {0} '.format(p1.name) + str(p1.hp))
+            if p1.hp <= 0:
+                print('Игрок {}'.format(p1.name) + ' выйграл')
+
+
+
+        if i == 1:
+            p2.hp -= 20
+            print('Hp {0} '.format(p2.name) + str(p2.hp))
+            if p2.hp <= 0:
+                print('Игрок {}'.format(p2.name) + ' выйграл')
+
+Mari = Fighter()
+Mari.name = 'Мария'
+Vari = Fighter()
+Vari.name = 'Vary'
+F = Fighter()
+F.fight(Mari, Vari)
+
+while Mari.hp >= 0 and Vari.hp >= 0:
+    if Mari.hp <= 0 or Vari.hp <= 0:
+        break
+    F.fight(Mari, Vari)
